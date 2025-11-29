@@ -1,17 +1,13 @@
 import './App.css';
 import { Component } from 'react';
-import { Contacts } from "./components/Contacts"
+import Contacts from "./components/Contacts"
 import Phonebook from "./components/Phonebook"
 
 export default class App extends Component {
   state = {
-    contacts: [
-      {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
-      {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
-      {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
-      {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
-    ],
+    contacts: [],
     filter: '',
+    hasError: false
   }
 
   deleteContact = (id) => {
@@ -36,13 +32,53 @@ export default class App extends Component {
     }))
   }
 
+  componentDidUpdate(_prevProps, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+            fetch(`http://localhost:3000/contacts/`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(this.state.contacts)
+            })
+            .then(res => res.json())
+            .then(data => console.log("Updated:", data))
+            .catch(error => console.error("Update failed:", error));
+        };
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+    console.log("Timer has stopped");
+  }
+
+  componentDidCatch(error, info) {
+    console.error("Error caught by ErrorBoundary:", error);
+    console.log("Component stack:", info.componentStack);
+    this.setState({ hasError: true });
+  }
+
   render() {
     const visibleContacts = this.state.contacts.filter(contact => contact.name.toLowerCase().includes(this.state.filter.toLowerCase()));
-    return <div className="container">
-      <Phonebook addContact={this.addContact}/>
-      <Contacts deleteContact={this.deleteContact} contacts={visibleContacts} handleChange={this.handleChange} value={this.state.filter}/>
-    </div>
-  }
-} 
 
+    if (this.state.hasError === false){
+      return <div className="container">
+        <Phonebook addContact={this.addContact}/>
+        <Contacts deleteContact={this.deleteContact} contacts={visibleContacts} handleChange={this.handleChange} value={this.state.filter}/>
+      </div>
+    } else if (this.state.hasError === false) {
+      return <div className="container">
+          <h1>Your code has an error somewhere</h1>
+      </div>
+    }
+
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(() => console.log("tick"), 1000);
+    fetch("http://localhost:3000/contacts")
+      .then(res => res.json())
+      .then(data => this.setState({ contacts: data }))
+      .catch(error => console.error("Fetch error:", error));
+    }
+    
+}
 
