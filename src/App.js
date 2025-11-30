@@ -61,7 +61,13 @@ export default class App extends Component {
   }
 
   render() {
-    const visibleContacts = this.state.contacts.filter(contact => contact.name.toLowerCase().includes(this.state.filter.toLowerCase()));
+    let visibleContacts;
+    if (this.state.contacts === null) {
+      visibleContacts = []
+    } else {
+      visibleContacts = this.state.contacts.filter(contact => contact.name.toLowerCase().includes(this.state.filter.toLowerCase()));
+    }
+    
 
     if (this.state.hasError === false){
       return <div className="container">
