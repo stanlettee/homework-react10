@@ -63,7 +63,8 @@ export default class App extends Component {
   render() {
     let visibleContacts;
     if (this.state.contacts === null) {
-      visibleContacts = []
+      localStorage.setItem("contacts", JSON.stringify(contactsData.contacts))
+      visibleContacts = this.state.contacts.filter(contact => contact.name.toLowerCase().includes(this.state.filter.toLowerCase()));
     } else {
       visibleContacts = this.state.contacts.filter(contact => contact.name.toLowerCase().includes(this.state.filter.toLowerCase()));
     }
