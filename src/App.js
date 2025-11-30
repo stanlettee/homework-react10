@@ -2,6 +2,7 @@ import './App.css';
 import { Component } from 'react';
 import Contacts from "./components/Contacts"
 import Phonebook from "./components/Phonebook"
+import contactsData from "./contacts.json";
 
 export default class App extends Component {
   state = {
@@ -21,7 +22,7 @@ export default class App extends Component {
   }
 
   addContact = (name, number) => {
-    const newId = this.state.contacts.length > 0 ? this.state.contacts.length : 1
+    const newId = contactsData.contacts.length + 1
     const newContact = {
       id: `id-${newId}`,
       name: name,
@@ -30,20 +31,23 @@ export default class App extends Component {
     this.setState(prevState => ({
       contacts: [...prevState.contacts, newContact]
     }))
+    localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
   }
 
   componentDidUpdate(_prevProps, prevState) {
     if (this.state.contacts !== prevState.contacts) {
-            fetch(`http://localhost:3000/contacts/`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(this.state.contacts)
-            })
-            .then(res => res.json())
-            .then(data => console.log("Updated:", data))
-            .catch(error => console.error("Update failed:", error));
+      localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
         };
   }
+
+              // fetch(`http://localhost:3000/contacts/`, {
+            //     method: "PUT",
+            //     headers: { "Content-Type": "application/json" },
+            //     body: JSON.stringify(this.state.contacts)
+            // })
+            // .then(res => res.json())
+            // .then(data => console.log("Updated:", data))
+            // .catch(error => console.error("Update failed:", error));
 
   componentWillUnmount() {
     clearInterval(this.interval);
@@ -74,11 +78,15 @@ export default class App extends Component {
 
   componentDidMount() {
     this.interval = setInterval(() => console.log("tick"), 1000);
-    fetch("http://localhost:3000/contacts")
-      .then(res => res.json())
-      .then(data => this.setState({ contacts: data }))
-      .catch(error => console.error("Fetch error:", error));
+    const saved = localStorage.getItem("contacts")
+    if (saved === "[]"){
+      localStorage.setItem("contacts", JSON.stringify(contactsData.contacts))
+      this.setState({ contacts: contactsData.contacts })
+    } else {
+      this.setState({ contacts: JSON.parse(saved) })
     }
     
+    
+  }
 }
 
