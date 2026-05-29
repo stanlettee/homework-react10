@@ -1,13 +1,17 @@
-export const getContacts = state => state.contacts.contacts
+import { createSelector } from "reselect";
 
-export const getFilter = state => state.contacts.filter;
+export const selectContacts = state => state.contacts.contacts
 
-export const getFilteredContacts = state => {
-    if (state.contacts.filter === "") {
-        return state.contacts.contacts
-    } else {
-        return state.contacts.contacts.filter(contact => contact.name.toLowerCase().includes(state.contacts.filter.toLowerCase()))
+export const selectFilter = state => state.contacts.filter;
+
+
+export const selectFilteredContacts = createSelector(
+    [selectContacts, selectFilter],
+    (contacts, filter) => {
+        if (filter === "") {
+            return contacts
+        } else {
+            return contacts.filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()))
+        }
     }
-
-    
-}
+)
