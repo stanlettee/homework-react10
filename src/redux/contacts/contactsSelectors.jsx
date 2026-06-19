@@ -1,17 +1,21 @@
 import { createSelector } from "reselect";
-
-export const selectContacts = state => state.contacts.contacts
+import { selectAll } from "./contactsSlice";
 
 export const selectFilter = state => state.contacts.filter;
 
-
 export const selectFilteredContacts = createSelector(
-    [selectContacts, selectFilter],
+    [selectAll, selectFilter], 
     (contacts, filter) => {
-        if (filter === "") {
-            return contacts
-        } else {
-            return contacts.filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()))
+        if (!contacts) return []; 
+        
+        const normalizedFilter = filter.toLowerCase().trim();
+        
+        if (normalizedFilter === "") {
+            return contacts;
         }
+        
+        return contacts.filter(contact => 
+            contact.name.toLowerCase().includes(normalizedFilter)
+        );
     }
-)
+);

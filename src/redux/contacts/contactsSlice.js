@@ -5,15 +5,25 @@ import {
   removeContact,
 } from "./contactsOperation";
 
+import { createEntityAdapter } from '@reduxjs/toolkit'
+
+const contactsAdapter = createEntityAdapter();
+
 const contactsSlice = createSlice({
   name: "contacts",
 
-  initialState: {
-    filter: "",
-    contacts: [],
-    error: null,
+  initialState: contactsAdapter.getInitialState({
     loading: false,
-  },
+    error: null,
+    filter: "",
+  }),
+
+  // initialState: {
+  //   filter: "",
+  //   contacts: [],
+  //   error: null,
+  //   loading: false,
+  // },
 
   reducers: {
     setFilter: {
@@ -37,7 +47,7 @@ const contactsSlice = createSlice({
     });
 
     builder.addCase(fetchContacts.fulfilled, (state, action) => {
-      state.contacts = action.payload;
+      contactsAdapter.setAll(state, action.payload);
       state.loading = false;
     });
 
@@ -53,7 +63,7 @@ const contactsSlice = createSlice({
     });
 
     builder.addCase(addContact.fulfilled, (state, action) => {
-      state.contacts.push(action.payload);
+      contactsAdapter.addOne(state, action.payload)
       state.loading = false;
     });
 
@@ -69,10 +79,7 @@ const contactsSlice = createSlice({
     });
 
     builder.addCase(removeContact.fulfilled, (state, action) => {
-      state.contacts = state.contacts.filter(
-        contact => contact.id !== action.payload.id
-      );
-
+      contactsAdapter.removeOne(state, action.payload.id)
       state.loading = false;
     });
 
@@ -83,6 +90,9 @@ const contactsSlice = createSlice({
 
   },
 });
+
+export const {selectAll, selectById, selectIds} = contactsAdapter.getSelectors(
+  (state) => state.contacts)
 
 export const { setFilter } = contactsSlice.actions;
 
