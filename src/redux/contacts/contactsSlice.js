@@ -92,8 +92,8 @@ const contactsSlice = createSlice({
 });
 
 export const {selectAll, selectById, selectIds} = contactsAdapter.getSelectors(
+  
   (state) => state.contacts)
-
 export const { setFilter } = contactsSlice.actions;
 
 export const contactsReducer = contactsSlice.reducer;

@@ -1,51 +1,22 @@
 import './App.css';
-import { Contacts } from "./components/Contacts";
-import { Phonebook } from "./components/Phonebook";
-
-import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-
-import {
-  selectFilter,
-  selectFilteredContacts
-} from "./redux/contacts/contactsSelectors";
-
-import {
-  addContact,
-  removeContact,
-  fetchContacts
-} from "./redux/contacts/contactsOperation";
-
-import { setFilter } from './redux/contacts/contactsSlice';
+import { HomePage } from './pages/HomePage/HomePage';
+import { AuthPage } from './pages/AuthPage/AuthPage';
+import { Route } from "react-router";
+import { Routes } from "react-router";
+import { PrivateRoute } from './utilities/routes/PrivateRoute';
+import { PublicRestrictedRoute } from './utilities/routes/PublicRoute';
+import { Header } from './components/Header/Header';
 
 const App = () => {
-  const filter = useSelector(selectFilter);
-  const filteredContacts = useSelector(selectFilteredContacts);
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
-
   return (
-    <div className="container">
-
-      <Phonebook
-        addContact={(name, number) =>
-          dispatch(addContact({ name, number }))
-        }
-      />
-
-      <Contacts
-        deleteContact={(id) => dispatch(removeContact(id))}
-        handleChange={(value) => dispatch(setFilter(value))}
-        contacts={filteredContacts}
-        filter={filter}
-      />
-
-    </div>
-  );
+    <>
+      <Header />
+      <Routes>
+          <Route path="/" element={<PublicRestrictedRoute restricted><AuthPage /></PublicRestrictedRoute>} />
+          <Route path="/home" element={<PrivateRoute><HomePage /></PrivateRoute>} />
+      </Routes>
+    </>
+  )
 };
 
 export default App;

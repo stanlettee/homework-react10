@@ -1,0 +1,25 @@
+.form {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 30px;
+    align-items: center;
+}
+
+.input {
+    height: 20px;
+    font-size: 16px;
+    border: 1.5px solid grey;
+    outline: none;
+    border-radius: 20px;
+    background-color: transparent;
+    padding: 15px;
+}
+
+.button {
+    background-color: transparent;
+    border-radius: 25px;
+    padding: 5px 15px 5px 15px;
+    cursor: pointer;
+    border: 1.5px solid black
+}

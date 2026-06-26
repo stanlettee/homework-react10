@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 axios.defaults.baseURL =
-  "https://6a00a74f36fb6ad04de05a5c.mockapi.io";
+  "http://localhost:3001";
 
 
 // GET
@@ -19,6 +19,7 @@ export const fetchContacts = createAsyncThunk(
     }
   }
 );
+
 
 
 // DELETE

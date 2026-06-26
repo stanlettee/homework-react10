@@ -13,7 +13,6 @@ export const selectFilteredContacts = createSelector(
         if (normalizedFilter === "") {
             return contacts;
         }
-        
         return contacts.filter(contact => 
             contact.name.toLowerCase().includes(normalizedFilter)
         );
