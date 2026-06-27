@@ -79,7 +79,7 @@ const contactsSlice = createSlice({
     });
 
     builder.addCase(removeContact.fulfilled, (state, action) => {
-      contactsAdapter.removeOne(state, action.payload.id)
+      contactsAdapter.removeOne(state, action.payload)
       state.loading = false;
     });
 

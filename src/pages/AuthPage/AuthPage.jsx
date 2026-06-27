@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { createUser, loginUser, logoutUser } from "../../redux/users/usersOperation";
 import styles from "./AuthPage.module.css"
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 
 export const AuthPage = () => {
     const [isRegistering, setIsRegistering] = useState(true)
@@ -28,13 +30,13 @@ export const AuthPage = () => {
 
     return (
         <form className={styles.form} onSubmit={handleSubmit}>
-            <input className={styles.input} name="email" type="email" placeholder="Enter your email" />
-            <input className={styles.input} name="password" type="password" placeholder="Enter your password" />
-            <button className={styles.button} type="submit">{isRegistering ? "Register" : "Login"}</button>
-            <button className={styles.button} type="button" onClick={() => dispatch(logoutUser())}>Logout</button>
-            <button className={styles.button} type="button" onClick={() => setIsRegistering(!isRegistering)}>
+            <TextField id="outlined-basic" label="Email" variant="outlined" className={styles.input} name="email" type="email" placeholder="Enter your email" />
+            <TextField id="outlined-basic" label="Password" variant="outlined" className={styles.input} name="password" type="password" placeholder="Enter your password" />
+            <Button variant="contained" color="success" className={styles.button} type="submit">{isRegistering ? "Register" : "Login"}</Button>
+            <Button variant="contained" color="error" className={styles.button} type="button" onClick={() => dispatch(logoutUser())}>Logout</Button>
+            <Button variant="contained" className={styles.button} type="button" onClick={() => setIsRegistering(!isRegistering)}>
                 {isRegistering ? "Switch to Login" : "Switch to Register"}
-            </button>
+            </Button>
         </form>
 
 

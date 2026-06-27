@@ -6,8 +6,15 @@ import { Routes } from "react-router";
 import { PrivateRoute } from './utilities/routes/PrivateRoute';
 import { PublicRestrictedRoute } from './utilities/routes/PublicRoute';
 import { Header } from './components/Header/Header';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { fetchContacts } from './redux/contacts/contactsOperation';
 
 const App = () => {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(fetchContacts)
+  }, [])
   return (
     <>
       <Header />

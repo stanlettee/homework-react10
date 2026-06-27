@@ -9,33 +9,53 @@
       "email": "stas@gmail.com",
       "password": "$2a$10$4h1JjlQc6kWP7wiWszvrIO1rv8WIecgzIStbimFDJH9XdCdbDlGfq",
       "id": 2
+    },
+    {
+      "email": "helloworld@gmail.com",
+      "password": "$2a$10$Y8HCH4QYnwLj9hhHXE3Hi.q5hLjuNwJuKXfO09F0.6UBRr2TZk63S",
+      "id": 3
     }
   ],
   "contacts": [
     {
-      "id": "id-2",
-      "name": "Hermione Kline",
-      "number": "443-89-12"
+      "name": "name 3",
+      "number": "380",
+      "id": 1
     },
     {
-      "id": "id-3",
-      "name": "Eden Clements",
-      "number": "645-17-79"
+      "name": "name 4",
+      "number": "45893",
+      "id": 2
     },
     {
-      "id": "id-4",
-      "name": "Annie Copeland",
-      "number": "227-91-26"
+      "name": "name 5",
+      "number": "2312516",
+      "id": 3
     },
     {
-      "id": "9c1d",
-      "name": "Anastasia Ivanova",
-      "number": "1431"
+      "name": "name 6 ",
+      "number": "12412423152",
+      "id": 4
     },
     {
-      "name": "Stas",
-      "number": "1431",
-      "id": "txeH8rR"
+      "name": "name 7",
+      "number": "134",
+      "id": 5
+    },
+    {
+      "name": "name 8",
+      "number": "515",
+      "id": 6
+    },
+    {
+      "name": "name 9",
+      "number": "5543",
+      "id": 7
+    },
+    {
+      "name": "name 10",
+      "number": "4541",
+      "id": 8
     }
   ]
 }

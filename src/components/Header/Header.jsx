@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 import { useDispatch, useSelector } from 'react-redux' // Импортировали useSelector
 import { logoutUser } from '../../redux/users/usersOperation'
 import { selectEmail } from '../../redux/users/usersSelectors'
+import Button from '@mui/material/Button';
 
 export const Header = () => {
     const dispatch = useDispatch()
@@ -22,9 +23,9 @@ export const Header = () => {
                         <li className={styles.item}>
                             <div className={styles.box}>
                                 <p className={styles.user}>{email}</p>
-                                <button type="button" onClick={() => dispatch(logoutUser())}>
+                                <Button variant="outlined" color="error" type="button" onClick={() => dispatch(logoutUser())}>
                                     Logout
-                                </button>
+                                </Button>
                             </div>
                         </li>
                     )}

@@ -26,7 +26,7 @@ export const HomePage = () => {
 
   useEffect(() => {
     dispatch(fetchContacts());
-  }, [dispatch]);
+  }, []);
 
   return (
       

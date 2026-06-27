@@ -6,7 +6,7 @@
     align-items: center;
 }
 
-.input {
+/* .input {
     height: 20px;
     font-size: 16px;
     border: 1.5px solid grey;
@@ -14,12 +14,12 @@
     border-radius: 20px;
     background-color: transparent;
     padding: 15px;
-}
+} */
 
-.button {
+/* .button {
     background-color: transparent;
     border-radius: 25px;
     padding: 5px 15px 5px 15px;
     cursor: pointer;
     border: 1.5px solid black
-}
+} */
